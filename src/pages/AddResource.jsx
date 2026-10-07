@@ -1,4 +1,6 @@
+
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 function AddResource() {
@@ -37,64 +39,160 @@ function AddResource() {
       });
 
     } catch (error) {
-      console.error(error);
+      console.error("Error adding resource:", error);
       alert("Failed to add resource!");
     }
   };
 
   return (
-    <div>
-      <h1>Add Resource</h1>
+    <div className="resource-page">
 
-      <form onSubmit={handleSubmit}>
+      <div className="resource-form-card">
 
-        <input
-          type="text"
-          name="title"
-          placeholder="Resource Name"
-          value={form.title}
-          onChange={handleChange}
-          required
-        />
+        <div className="resource-form-header">
 
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={form.description}
-          onChange={handleChange}
-          required
-        />
+          <Link
+            to="/dashboard"
+            className="back-link"
+          >
+            ← Back to Dashboard
+          </Link>
 
-        <select
-          name="category"
-          value={form.category}
-          onChange={handleChange}
-          required
+          <div className="resource-form-logo">
+            +
+          </div>
+
+          <p className="auth-label">
+            SHARE WITH YOUR CAMPUS
+          </p>
+
+          <h1>
+            Add a Resource
+          </h1>
+
+          <p>
+            Have something useful? List it here so another
+            student can borrow it.
+          </p>
+
+        </div>
+
+
+        <form
+          onSubmit={handleSubmit}
+          className="resource-form"
         >
-          <option value="">Select Category</option>
-          <option value="Books">Books</option>
-          <option value="Equipment">Equipment</option>
-          <option value="Electronics">Electronics</option>
-          <option value="Notes">Notes</option>
-          <option value="Other">Other</option>
-        </select>
 
-        <input
-          type="text"
-          name="ownerName"
-          placeholder="Your Name"
-          value={form.ownerName}
-          onChange={handleChange}
-          required
-        />
+          <div className="form-group">
 
-        <button type="submit">
-          Add Resource
-        </button>
+            <label>
+              Resource Name
+            </label>
 
-      </form>
+            <input
+              type="text"
+              name="title"
+              placeholder="e.g. Data Structures Textbook"
+              value={form.title}
+              onChange={handleChange}
+              required
+            />
+
+          </div>
+
+
+          <div className="form-group">
+
+            <label>
+              Description
+            </label>
+
+            <textarea
+              name="description"
+              placeholder="Tell students a little about this resource..."
+              value={form.description}
+              onChange={handleChange}
+              required
+            />
+
+          </div>
+
+
+          <div className="form-group">
+
+            <label>
+              Category
+            </label>
+
+            <select
+              name="category"
+              value={form.category}
+              onChange={handleChange}
+              required
+            >
+
+              <option value="">
+                Select a category
+              </option>
+
+              <option value="Books">
+                Books
+              </option>
+
+              <option value="Equipment">
+                Equipment
+              </option>
+
+              <option value="Electronics">
+                Electronics
+              </option>
+
+              <option value="Notes">
+                Notes
+              </option>
+
+              <option value="Other">
+                Other
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div className="form-group">
+
+            <label>
+              Your Name
+            </label>
+
+            <input
+              type="text"
+              name="ownerName"
+              placeholder="Enter your name"
+              value={form.ownerName}
+              onChange={handleChange}
+              required
+            />
+
+          </div>
+
+
+          <button
+            type="submit"
+            className="resource-submit-button"
+          >
+            Add Resource
+            <span>→</span>
+          </button>
+
+        </form>
+
+      </div>
+
     </div>
   );
 }
 
 export default AddResource;
+

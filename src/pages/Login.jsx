@@ -1,5 +1,6 @@
+
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 function Login() {
@@ -32,8 +33,6 @@ function Login() {
       console.log("Backend response:", response.data);
 
       if (response.data === "Login successful") {
-        console.log("ABOUT TO NAVIGATE");
-
         navigate("/dashboard");
       } else {
         alert(response.data);
@@ -46,36 +45,100 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>UNILOOP Login</h1>
+    <div className="auth-page">
 
-      <form onSubmit={handleSubmit}>
+      <div className="auth-card">
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          required
-        />
+        <div className="auth-header">
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-          required
-        />
+          <div className="auth-logo">
+            U
+          </div>
 
-        <button type="submit">
-          Login
-        </button>
+          <p className="auth-label">
+            WELCOME BACK
+          </p>
 
-      </form>
+          <h1>
+            Login to UNILOOP
+          </h1>
+
+          <p>
+            Access resources shared by your campus community.
+          </p>
+
+        </div>
+
+
+        <form
+          onSubmit={handleSubmit}
+          className="auth-form"
+        >
+
+          <div className="form-group">
+
+            <label>
+              Email address
+            </label>
+
+            <input
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+
+          </div>
+
+
+          <div className="form-group">
+
+            <label>
+              Password
+            </label>
+
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+
+          </div>
+
+
+          <button
+            type="submit"
+            className="auth-button"
+          >
+            Login
+          </button>
+
+        </form>
+
+
+        <div className="auth-divider">
+          <span></span>
+          <p>New to UNILOOP?</p>
+          <span></span>
+        </div>
+
+
+        <p className="auth-footer">
+          <Link to="/register">
+            Create your account
+          </Link>
+        </p>
+
+      </div>
+
     </div>
   );
 }
 
 export default Login;
+

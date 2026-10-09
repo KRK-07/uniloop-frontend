@@ -10,7 +10,7 @@ function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/resources")
+      .get("https://uniloop-backend-jl0r.onrender.com/api/resources")
       .then((response) => {
         setResources(response.data);
       })
@@ -28,7 +28,7 @@ function Dashboard() {
 
     try {
       await axios.post(
-        "http://localhost:8080/api/borrow-requests",
+        "https://uniloop-backend-jl0r.onrender.com/api/borrow-requests",
         {
           resourceId: resourceId,
           requesterEmail: requesterEmail

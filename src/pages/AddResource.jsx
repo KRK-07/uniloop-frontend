@@ -23,7 +23,7 @@ function AddResource() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/resources",
+        "https://uniloop-backend-jl0r.onrender.com/api/resources",
         form
       );
 

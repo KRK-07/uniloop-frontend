@@ -1,9 +1,8 @@
-
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-function Login() {
+function Login({ onLogin }) {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -23,7 +22,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "https://uniloop-backend-jl0r.onrender.com/api/users/login",
+        "http://localhost:8080/api/users/login",
         {
           email: form.email,
           password: form.password
@@ -33,53 +32,42 @@ function Login() {
       console.log("Backend response:", response.data);
 
       if (response.data === "Login successful") {
+        // Save the logged-in user's email
+        localStorage.setItem("uniloopUserEmail", form.email);
+
+        // Update the app's login state
+        onLogin();
+
         navigate("/dashboard");
       } else {
         alert(response.data);
       }
-
     } catch (error) {
       console.error("Login error:", error);
-      alert("Login failed!");
+      alert(
+        error.response?.data || "Login failed! Please try again."
+      );
     }
   };
 
   return (
     <div className="auth-page">
-
       <div className="auth-card">
-
         <div className="auth-header">
+          <div className="auth-logo">U</div>
 
-          <div className="auth-logo">
-            U
-          </div>
+          <p className="auth-label">WELCOME BACK</p>
 
-          <p className="auth-label">
-            WELCOME BACK
-          </p>
-
-          <h1>
-            Login to UNILOOP
-          </h1>
+          <h1>Login to UNILOOP</h1>
 
           <p>
             Access resources shared by your campus community.
           </p>
-
         </div>
 
-
-        <form
-          onSubmit={handleSubmit}
-          className="auth-form"
-        >
-
+        <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-
-            <label>
-              Email address
-            </label>
+            <label>Email address</label>
 
             <input
               type="email"
@@ -89,15 +77,10 @@ function Login() {
               onChange={handleChange}
               required
             />
-
           </div>
 
-
           <div className="form-group">
-
-            <label>
-              Password
-            </label>
+            <label>Password</label>
 
             <input
               type="password"
@@ -107,19 +90,12 @@ function Login() {
               onChange={handleChange}
               required
             />
-
           </div>
 
-
-          <button
-            type="submit"
-            className="auth-button"
-          >
+          <button type="submit" className="auth-button">
             Login
           </button>
-
         </form>
-
 
         <div className="auth-divider">
           <span></span>
@@ -127,18 +103,12 @@ function Login() {
           <span></span>
         </div>
 
-
         <p className="auth-footer">
-          <Link to="/register">
-            Create your account
-          </Link>
+          <Link to="/register">Create your account</Link>
         </p>
-
       </div>
-
     </div>
   );
 }
 
 export default Login;
-

@@ -29,7 +29,7 @@ function Register() {
 
     try {
       const response = await axios.post(
-        "https://uniloop-backend-jl0r.onrender.com/api/users/register",
+        "http://localhost:8080/api/users/register",
         {
           name: form.name,
           email: form.email,
